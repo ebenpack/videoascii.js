@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas id="canvas"></canvas>
+    <video id="video" controls>
+        <source src='bar.webm' type='video/webm'>
+    </video>
+
+    <script src="build/videoascii.js"></script>
+    <script>
+        videoascii({
+            canvas: document.getElementById('canvas'),
+            video: document.getElementById('video'),
+            // output_width: 600,
+            font_size: 8,
+            monochrome: false
+        });
+    </script>
+</body>
+</html>

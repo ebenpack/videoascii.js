@@ -1,0 +1,21 @@
+{
+  "name": "videoascii",
+  "version": "0.0.1",
+  "description": "Renders video as ASCII.",
+  "main": "src/videoascii.js",
+  "scripts": {
+    "minify": "gulp compile",
+    "test": "gulp test"
+  },
+  "author": "Eben Packwood",
+  "license": "MIT",
+  "dependencies": {
+    "asciify": "git://github.com/ebenpack/asciify.js.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-browserify": "^0.5.0",
+    "gulp-closure-compiler": "^0.2.1",
+    "gulp-jshint": "^1.6.1"
+  }
+}
