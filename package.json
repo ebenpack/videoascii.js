@@ -1,7 +1,7 @@
 {
   "name": "videoascii",
   "version": "0.0.1",
-  "description": "Renders video as ASCII.",
+  "description": "Renders HTML5 video as ASCII.",
   "main": "src/videoascii.js",
   "scripts": {
     "minify": "gulp compile",
