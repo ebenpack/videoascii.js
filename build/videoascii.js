@@ -85,8 +85,7 @@ function videoascii(options){
     var font_size = (options.font_size === undefined) ? 12 : options.font_size;
     var monochrome = (options.monochrome === undefined) ? true : options.monochrome;
 
-    var width, height, image_data, aspect_ratio,
-        output_height, font_width, font_height;
+    var width, height, image_data, aspect_ratio, output_height;
 
     // Video frames are drawn to offscreen buffer canvas
     // in order to get pixel data into ImageData array.
