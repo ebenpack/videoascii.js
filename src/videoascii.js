@@ -5,6 +5,7 @@ function videoascii(options){
     var ctx = canvas.getContext('2d');
     var video = options.video;
     var output_width = options.output_width;
+    var autoplay = (options.autoplay === undefined) ? false : options.autoplay;
     var font_size = (options.font_size === undefined) ? 12 : options.font_size;
     var monochrome = (options.monochrome === undefined) ? true : options.monochrome;
 
@@ -35,6 +36,10 @@ function videoascii(options){
         ctx.font = font_size + "pt Courier";
        
         image_data = buffer_ctx.getImageData(0, 0, width, height);
+
+        if (autoplay){
+            video.play();
+        }
         window.requestAnimationFrame(update);
     });
 
