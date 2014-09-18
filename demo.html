@@ -7,9 +7,8 @@
 <body>
     
     <canvas id="canvas" width="300" height="300"></canvas>
-    <video src="small.webm" draggable="true"></video>
 
-    <script src="build/videoascii.js"></script>
+    <script src="build.js"></script>
     <script>
          (function(){
             var canvas = document.getElementById('canvas');
@@ -30,7 +29,8 @@
                     canvas: canvas,
                     video: video,
                     font_size: 8,
-                    monochrome: false
+                    monochrome: false,
+                    autoplay: true
                 });
 
             }
@@ -47,9 +47,7 @@
                         var reader = new FileReader();
                         reader.onload = function (evt) {
                             video.src = evt.target.result;
-                            video.onload = function(e){
-                                make_ascii(video);
-                            }
+                            make_ascii(canvas, video);
                         };
                     reader.readAsDataURL(file);
                     }
