@@ -18,8 +18,8 @@ function videoascii(options){
 
     video.addEventListener('loadeddata', function(){
         // Setting width/height resets the context, so these go first.
-        width = Math.floor(video.getBoundingClientRect().width);
-        height = Math.floor(video.getBoundingClientRect().height);
+        width = Math.floor(video.videoWidth);
+        height = Math.floor(video.videoHeight);
         buffer_canvas.width = width;
         buffer_canvas.height = height;
 
