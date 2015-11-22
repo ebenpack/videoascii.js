@@ -3,8 +3,10 @@ var asciify = require('asciify');
 function videoascii(options){
     var canvas = options.canvas;
     var ctx = canvas.getContext('2d');
-    var video = options.video;
+    var videoSrc = options.videoSrc;
+    var video = document.createElement('video');
     var output_width = options.output_width;
+    var loaded
     var autoplay = (options.autoplay === undefined) ? false : options.autoplay;
     var font_size = (options.font_size === undefined) ? 12 : options.font_size;
     var monochrome = (options.monochrome === undefined) ? true : options.monochrome;
@@ -42,6 +44,8 @@ function videoascii(options){
         }
         window.requestAnimationFrame(update);
     });
+
+    video.src = videoSrc;
 
 
     function update(){
