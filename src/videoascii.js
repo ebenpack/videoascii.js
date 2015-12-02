@@ -34,7 +34,7 @@ function videoascii(options){
     video.src = videoSrc;
 
     function update(){
-        if (!video.paused && video.ended){
+        if (!video.paused && !video.ended){
             drawFrame();
             rafId = requestAnimationFrame(update);
         }
