@@ -9,6 +9,7 @@ function videoascii(options){
     var autoplay = (options.autoplay === undefined) ? false : options.autoplay;
     var font_size = (options.font_size === undefined) ? 12 : options.font_size;
     var monochrome = (options.monochrome === undefined) ? true : options.monochrome;
+    var rafId = null;
 
     var width, height, image_data, aspect_ratio, output_height;
 
@@ -19,6 +20,42 @@ function videoascii(options){
 
 
     video.addEventListener('loadeddata', function(){
+        resize(output_width);
+
+        ctx.font = font_size + "pt Courier";
+       
+        image_data = buffer_ctx.getImageData(0, 0, width, height);
+
+        if (autoplay){
+            start();
+        }
+    });
+
+    video.src = videoSrc;
+
+    function update(){
+        if (!video.paused && video.ended){
+            drawFrame();
+            rafId = requestAnimationFrame(update);
+        }
+    }
+
+    function drawFrame(){
+        buffer_ctx.drawImage(video, 0, 0);
+        image_data = buffer_ctx.getImageData(0, 0, width, height);
+        ctx.clearRect(0, 0, output_width, output_height);
+        asciify(image_data, canvas, font_size, monochrome);
+    }
+
+    function start(){
+        video.play();
+        rafId = requestAnimationFrame(update);
+    }
+    function pause(){
+        video.pause();
+        cancelAnimationFrame(rafId);
+    }
+    function resize(output_width){
         // Setting width/height resets the context, so these go first.
         width = Math.floor(video.videoWidth);
         height = Math.floor(video.videoHeight);
@@ -33,31 +70,17 @@ function videoascii(options){
         output_height = Math.floor(output_width / aspect_ratio);
         canvas.width = output_width;
         canvas.height = output_height;
-
-        ctx.font = font_size + "pt Courier";
-       
-        image_data = buffer_ctx.getImageData(0, 0, width, height);
-
-        if (autoplay){
-            video.play();
-        }
-        window.requestAnimationFrame(update);
-    });
-
-    video.src = videoSrc;
-
-
-    function update(){
-        if (video.paused || video.ended){
-            window.requestAnimationFrame(update);
-            return;
-        }
-        buffer_ctx.drawImage(video, 0, 0);
-        image_data = buffer_ctx.getImageData(0, 0, width, height);
-        ctx.clearRect(0, 0, output_width, output_height);
-        asciify(image_data, canvas, font_size, monochrome);
-        window.requestAnimationFrame(update);
     }
+    function restart(){
+        video.currentTime = 0;
+    }
+
+    return {
+        start: start,
+        stop: stop,
+        resize: resize,
+        restart: restart,
+    };
 }
 
 module.exports = videoascii;
