@@ -77,7 +77,7 @@ function videoascii(options){
 
     return {
         start: start,
-        stop: stop,
+        pause: pause,
         resize: resize,
         restart: restart,
     };
