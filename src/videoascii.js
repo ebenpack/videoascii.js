@@ -19,7 +19,7 @@ function videoascii(options){
     var buffer_ctx = buffer_canvas.getContext('2d');
 
 
-    video.addEventListener('loadeddata', function(){
+    video.addEventListener('canplay', function(){
         resize(output_width);
 
         ctx.font = font_size + "pt Courier";
@@ -31,7 +31,7 @@ function videoascii(options){
         }
     });
 
-    video.src = videoSrc;
+    video.src = window.URL.createObjectURL(videoSrc);
 
     function update(){
         if (!video.paused && !video.ended){
