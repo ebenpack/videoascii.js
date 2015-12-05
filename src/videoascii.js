@@ -22,12 +22,11 @@ function videoascii(options){
             0,
             0,
             0,
+            monochrome,
             ctx,
             10,
-            false,
-            0
+            0.001
         );
-    var draw = monochrome ? ascii.drawMonochrome : ascii.drawColor;
     video.addEventListener('canplay', function(){
         resize(output_width);
         ctx.font = font_size + "pt Courier";
@@ -51,7 +50,7 @@ function videoascii(options){
         buffer_ctx.drawImage(video, 0, 0);
         image_data = buffer_ctx.getImageData(0, 0, width, height);
         ctx.clearRect(0, 0, output_width, output_height);
-        draw(image_data.data);
+        ascii.draw(image_data.data);
     }
 
     function start(){
@@ -83,8 +82,7 @@ function videoascii(options){
         video.currentTime = 0;
     }
     function toggleMonochrome(){
-        monochrome = !monochrome;
-        draw = monochrome ? ascii.drawMonochrome : ascii.drawColor;
+        ascii.toggleMonochrome();
     }
 
     return {
