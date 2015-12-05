@@ -17,14 +17,22 @@ function videoascii(options){
     // in order to get pixel data into ImageData array.
     var buffer_canvas = document.createElement('canvas');
     var buffer_ctx = buffer_canvas.getContext('2d');
-
+    var ascii;
 
     video.addEventListener('canplay', function(){
         resize(output_width);
-
         ctx.font = font_size + "pt Courier";
-       
         image_data = buffer_ctx.getImageData(0, 0, width, height);
+        ascii = asciify(
+            image_data.width,
+            image_data.height,
+            output_width,
+            output_height,
+            ctx,
+            10,
+            false,
+            0
+        );
 
         if (autoplay){
             start();
@@ -44,7 +52,7 @@ function videoascii(options){
         buffer_ctx.drawImage(video, 0, 0);
         image_data = buffer_ctx.getImageData(0, 0, width, height);
         ctx.clearRect(0, 0, output_width, output_height);
-        asciify(image_data, canvas, font_size, monochrome);
+        ascii.draw(image_data.data);
     }
 
     function start(){
@@ -70,6 +78,7 @@ function videoascii(options){
         output_height = Math.floor(output_width / aspect_ratio);
         canvas.width = output_width;
         canvas.height = output_height;
+        ascii.resize(width, height, output_width, output_height);
     }
     function restart(){
         video.currentTime = 0;
