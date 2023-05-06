@@ -6,6 +6,6 @@
   "author": "Eben Packwood",
   "license": "MIT",
   "dependencies": {
-    "asciify": "git://github.com/ebenpack/asciify.js.git"
+    "asciify": "git+https://github.com/ebenpack/asciify.js.git"
   }
 }
